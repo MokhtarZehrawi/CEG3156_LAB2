@@ -12,7 +12,7 @@ ENTITY MUX_8x1_32bit IS
 		i_p6	: IN STD_LOGIC_VECTOR(31 downto 0);
 		i_p7	: IN STD_LOGIC_VECTOR(31 downto 0);
 		o_MUX 	: OUT STD_LOGIC_VECTOR(31 downto 0));
-END MUX_8x1_32bits;
+END MUX_8x1_32bit;
 
 
 ARCHITECTURE struct OF MUX_8x1_32bit IS
