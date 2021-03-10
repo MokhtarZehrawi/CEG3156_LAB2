@@ -1,6 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-ENTITY MUX_8x1_8bits IS
+ENTITY MUX_8x1_8bit IS
 	PORT(
 		i_SEL 	: IN STD_LOGIC_VECTOR(2 downto 0);
 		i_p0	: IN STD_LOGIC_VECTOR(7 downto 0);
@@ -15,7 +15,7 @@ ENTITY MUX_8x1_8bits IS
 END MUX_8x1_8bits;
 
 
-ARCHITECTURE struct OF MUX_8x1_8bits IS
+ARCHITECTURE struct OF MUX_8x1_8bit IS
 	SIGNAL int_mux_OUT   :  STD_LOGIC_VECTOR(7 downto 0);
 	
 
