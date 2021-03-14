@@ -5,7 +5,7 @@
 -- File          : unitALU_8bit.vhd
 -- Author        : Jainil Gandhi  <jgand039@uottawa.ca>
 -- Created       : 2021/03/09
--- Last modified : 2021/03/09
+-- Last modified : 2021/03/10
 -------------------------------------------------------------------------------
 -- Description : This file takes in 8-bit 'A', 'B' and 3-bit "aluOp". The 
 --		 "aluOp" help decide whether to OR inputs, AND inputs, compare
@@ -17,7 +17,7 @@ USE ieee.std_logic_1164.ALL;
 ENTITY unitALU_8bit IS
 	PORT (
 		A, B : IN STD_LOGIC_VECTOR (7 downto 0);
-		aluOp : IN STD_LOGIC_VECTOR (2 downto 0);
+		Op : IN STD_LOGIC_VECTOR (2 downto 0);
 		Output : OUT STD_LOGIC_VECTOR (7 downto 0);
 		Zero, Ovr : OUT STD_LOGIC
 	);
@@ -60,7 +60,7 @@ BEGIN
 		  input2 => int_CLA,
 		  input3(7 downto 1) => "0000000",
 		  input3(0) => int_SLT,
-		  SEL => aluOp (1 downto 0),
+		  SEL => Op (1 downto 0),
 	  	  output => int_Out
 	);
 
@@ -75,7 +75,7 @@ BEGIN
 	CLA: aluCLA_8bit
 	PORT MAP (A => A,
 		  B => B,
-		  Cin => aluOp(2),
+		  Cin => Op(2),
 		  Sum => int_CLA,
 		  Cout => OPEN,
 		  Ovr => Ovr
