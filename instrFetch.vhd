@@ -22,7 +22,7 @@ ENTITY instrFetch IS
 	PORT (
 		nextAddr : IN STD_LOGIC_VECTOR (7 downto 0);
 		Rst, pcClk, instrClk : IN STD_LOGIC;
-		incrAddr : OUT STD_LOGIC_VECTOR (7 downto 0);
+		Addr , incrAddr : OUT STD_LOGIC_VECTOR (7 downto 0);
 		instruct : OUT STD_LOGIC_VECTOR (31 downto 0)
 	);
 END;
@@ -82,5 +82,7 @@ BEGIN
 		  in_resetbar => Rst,
 		  o_Output => instruct
 	);
+
+	Addr <= int_Addr;
 
 END struct;	  

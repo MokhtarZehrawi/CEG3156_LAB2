@@ -34,7 +34,7 @@ COMPONENT Decoder_3x8 IS
 		o_Output : OUT STD_LOGIC_VECTOR (7 downto 0) );
 END COMPONENT;
 
-COMPONENT MUX_8x1_8bits IS
+COMPONENT MUX_8x1_8bit IS
 	PORT(
 		i_SEL 	: IN STD_LOGIC_VECTOR(2 downto 0);
 		i_p0	: IN STD_LOGIC_VECTOR(7 downto 0);
@@ -129,7 +129,7 @@ BEGIN
 		in_resetbar	 =>in_resetbar,
 		o_Output	 =>int_Reg7_out);
 
-	Read_mux1 : MUX_8x1_8bits
+	Read_mux1 : MUX_8x1_8bit
 	PORT MAP(
 		i_SEL 	=>in_Read1,
 		i_p0	=>int_Reg0_out,
@@ -142,7 +142,7 @@ BEGIN
 		i_p7	=>int_Reg7_out,
 		o_MUX 	=>int_ReadData1 );
 
-	Read_mux2 : MUX_8x1_8bits
+	Read_mux2 : MUX_8x1_8bit
 	PORT MAP(
 		i_SEL 	=>in_Read2,
 		i_p0	=>int_Reg0_out,
