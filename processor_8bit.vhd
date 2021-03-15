@@ -112,7 +112,7 @@ BEGIN
 
 	-- Component Instantiation --
 	CLK: clk_div_2to256
-	PORT MAP (i_SEL => "011",
+	PORT MAP (i_SEL => "010",
 		  i_resetBar => GRst,
 		  i_enable => '1',
 		  i_clock => int_fastClk,
@@ -197,6 +197,7 @@ BEGIN
 	);
 
 	-- Output Equation --
+	Instruct <= int_instruct;
 	PC <= int_PC;
 	aluResult <= int_aluResult;
 	Data1 <= int_Data1;

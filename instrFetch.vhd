@@ -32,6 +32,15 @@ ARCHITECTURE struct OF instrFetch IS
 SIGNAL int_instruct : STD_LOGIC_VECTOR (31 downto 0);
 SIGNAL int_Addr : STD_LOGIC_VECTOR (7 downto 0);
 
+COMPONENT instrMem IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		clock		: IN STD_LOGIC  := '1';
+		q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+END COMPONENT;
+
 COMPONENT Register_8bit IS
 	PORT (
 		in_Input			 : IN STD_LOGIC_VECTOR (7 downto 0);
@@ -68,11 +77,18 @@ BEGIN
 
 	INCR: aluCLA_8bit
 	PORT MAP (A => int_Addr,
-		  B => "00000001",
+		  B(7 downto 1) => "0000000",
+		  B(0) => Rst,
 		  Cin => '0',
 		  Sum => incrAddr,
 		  Cout => OPEN,
 		  Ovr => OPEN
+	);
+	
+	ROM: instrMem	
+	PORT MAP (address => int_Addr,
+			  clock => instrClk,
+			  q => int_instruct
 	);
 
 	STBL: Register_32bit
