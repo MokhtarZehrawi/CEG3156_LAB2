@@ -26,11 +26,19 @@ ARCHITECTURE struct OF processor_8bit IS
 
 SIGNAL int_instruct : STD_LOGIC_VECTOR (31 downto 0);
 SIGNAL int_PC, int_incAddr, int_nextAddr, int_Data1, int_Data2, int_aluResult, int_RegData : STD_LOGIC_VECTOR (7 downto 0);
-SIGNAL int_RegAddr : STD_LOGIC_VECTOR (2 downto 0);
+SIGNAL int_RegAddr : STD_LOGIC_VECTOR (7 downto 0);
 SIGNAL int_ALUOp : STD_LOGIC_VECTOR (1 downto 0);
 SIGNAL int_RegDst, int_Jump, int_Branch, int_MemRead, int_MemtoReg, int_MemWrite, int_ALUSrc, int_RegWrite : STD_LOGIC;
 SIGNAL int_Zero : STD_LOGIC;
 SIGNAL int_slowClk, int_fastClk : STD_LOGIC;	
+
+COMPONENT MUX_2x1_8bit IS
+	PORT (
+		input0, input1  : IN STD_LOGIC_VECTOR (7 downto 0);
+		SEL 		: IN STD_LOGIC;
+		output 		: OUT STD_LOGIC_VECTOR (7 downto 0)
+	);
+END COMPONENT;
 
 COMPONENT clk_div_2to256 IS
 	PORT(
@@ -135,6 +143,13 @@ BEGIN
 		  instruct => int_instruct
 	);
 
+	MUX: MUX_2x1_8bit
+	PORT MAP (input0 => int_instruct (23 downto 16),
+		  input1 => int_instruct (18 downto 11),
+		  SEL => int_RegDst,
+		  output => int_RegAddr
+	);	
+	
 	REGFile: RegisterFile_8x8
 	PORT MAP (in_Read1 => int_instruct (23 downto 21),
 		  in_Read2 => int_instruct (18 downto 16),
