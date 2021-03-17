@@ -41,11 +41,12 @@ COMPONENT instrMem IS
 	);
 END COMPONENT;
 
-COMPONENT Register_8bit IS
+COMPONENT highReg_8bit IS
 	PORT (
-		in_Input			 : IN STD_LOGIC_VECTOR (7 downto 0);
-		in_clk, in_en, in_resetbar	 : IN STD_LOGIC; 
-		o_Output			 : OUT STD_LOGIC_VECTOR (7 downto 0) );
+			Input : IN STD_LOGIC_VECTOR (7 downto 0);
+			Clk, En, Rst : IN STD_LOGIC;
+			Output : OUT STD_LOGIC_VECTOR (7 downto 0)
+	);
 END COMPONENT;
 
 COMPONENT Register_32bit IS
@@ -67,18 +68,17 @@ END COMPONENT;
 BEGIN
 	
 	-- Component Instantiation --
-	PC: Register_8bit
-	PORT MAP (in_Input => nextAddr,
-		  in_clk => pcClk,
-		  in_en => '1',
-		  in_resetbar => Rst,
-		  o_Output => int_Addr
+	PC: highReg_8bit
+	PORT MAP (Input => nextAddr,
+		  Clk => pcClk,
+		  En => '1',
+		  Rst => Rst,
+		  Output => int_Addr
 	);
 
 	INCR: aluCLA_8bit
 	PORT MAP (A => int_Addr,
-		  B(7 downto 1) => "0000000",
-		  B(0) => Rst,
+		  B => "00000001",
 		  Cin => '0',
 		  Sum => incrAddr,
 		  Cout => OPEN,

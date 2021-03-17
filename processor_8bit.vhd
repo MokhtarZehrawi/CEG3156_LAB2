@@ -15,9 +15,10 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY processor_8bit IS
 	PORT (
-		GClk, GRst : IN STD_LOGIC;
+		nextCycle, GClk, GRst : IN STD_LOGIC;
 		Instruct : OUT STD_LOGIC_VECTOR (31 downto 0);
 		PC, aluResult, Data1, Data2, WriteData : OUT STD_LOGIC_VECTOR (7 downto 0);
+		ALUOp : OUT STD_LOGIC_VECTOR (1 downto 0);
 		Branch, Zero, MemWrite, RegWrite, Jump, RegDst, MemtoReg, ALUSrc : OUT STD_LOGIC
 	);
 END;
@@ -136,7 +137,7 @@ BEGIN
 	FETCH: instrFetch
 	PORT MAP (nextAddr => int_nextAddr,
 		  Rst => GRst,
-		  pcClk => int_slowClk,
+		  pcClk => nextCycle,
 		  instrClk => int_fastClk,
 		  Addr => int_PC,
 		  incrAddr => int_incAddr,
@@ -156,7 +157,7 @@ BEGIN
 		  in_Write_sel => int_RegAddr (2 downto 0),
 		  in_Write_Data => int_RegData,
 		  in_Write_en => int_RegWrite,
-		  in_clk => int_slowClk,
+		  in_clk => nextCycle,
 		  in_resetbar => GRst,
 		  o_Data1 => int_Data1,
 		  o_Data2 => int_Data2
@@ -211,5 +212,6 @@ BEGIN
 	RegDst <= int_RegDst;
 	MemtoReg <= int_MemtoReg;
 	ALUSrc <= int_ALUSrc;
+	ALUOp <= int_ALUOp;
 END struct;	   
 

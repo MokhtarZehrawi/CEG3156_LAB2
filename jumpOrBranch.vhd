@@ -48,8 +48,7 @@ BEGIN
 
 	brnAdder: aluCLA_8bit
 	PORT MAP (A => incAddr,
-		  B(7 downto 6) => "11",
-		  B(5 downto 0) => instrAddr(7 downto 2),
+		  B => instrAddr, 
 		  Cin => '0',
 		  Sum => int_branch,
 		  Cout => OPEN,
